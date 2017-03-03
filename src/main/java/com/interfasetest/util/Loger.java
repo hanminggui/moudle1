@@ -9,5 +9,6 @@ public class Loger {
     @Test
     public void test() {
         System.err.println("world");
+        System.out.print("hello");
     }
 }
