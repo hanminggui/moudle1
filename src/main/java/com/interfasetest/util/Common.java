@@ -5,5 +5,14 @@ package com.interfasetest.util;
  */
 public class Common {
 
+    /**
+     * 判断字符串是不是数字
+     * @param str
+     * @return
+     */
+    public static boolean isNum(String str){
+        return str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
+    }
+
 
 }
