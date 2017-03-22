@@ -1,7 +1,6 @@
 package com.interfasetest.util;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
 
 /**
  * Created by han on 2017/3/3.
@@ -26,15 +25,29 @@ public class Common {
      */
     public static String getMD5(String str) {
         try {
-            // 生成一个MD5加密计算摘要
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            // 计算md5函数
-            md.update(str.getBytes());
-            // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
+            // encryptMD5()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
             // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-            return new BigInteger(1, md.digest()).toString(16);
+            return new BigInteger(1, Coder.encryptMD5(str.getBytes())).toString(16);
         } catch (Exception e) {
             throw new RuntimeException("MD5加密出现错误");
+        }
+    }
+
+    /**
+     *
+     * @param str
+     *          待加密的字符串
+     * @param publicKey
+     *          公钥
+     * @return
+     *          加密后的字符串
+     */
+    public static String encryptByPublicKey(String str, String publicKey){
+        try {
+            return new String(RSACoder.encryptByPublicKey(str.getBytes(), publicKey));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("RSA公钥加密出现错误");
         }
     }
 
