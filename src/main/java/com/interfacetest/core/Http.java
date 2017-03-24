@@ -16,18 +16,38 @@ public class Http {
     private String url;
     private String param;
     private String header;
+    private String encode = "utf-8";
 
     public Http(){
-
     }
     public Http(String url){
         this.url=url;
     }
 
     public Http(String url, String param) {
+        this.url = url;
+        this.param = param;
     }
 
     public Http(String url, String param, String headers) {
+        this.url = url;
+        this.param = param;
+        this.header = headers;
+    }
+
+    public Http setUrl(String url){
+        this.url = url;
+        return this;
+    }
+
+    public Http setParam(String param){
+        this.param = param;
+        return this;
+    }
+
+    public Http setHeader(String header){
+        this.header = header;
+        return this;
     }
 
     public Request doPost(){
@@ -36,23 +56,51 @@ public class Http {
     }
 
     static CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
-    public Request doGet(){
+
+    public Request get(){
         HttpGet httpGet = new HttpGet("http://www.cnblogs.com/loveyakamoz/archive/2011/07/21/2113252.html");
         HttpResponse response = null;
         try {
             response = closeableHttpClient.execute(httpGet);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        response.getEntity();
 
 
         return null;
     }
 
 
+    public void post(){
+        /**
+         * set header and param
+         */
 
-    public static String post(String s, Map<String, String> params) {
+    }
+
+    public void post(String url){
+        setUrl(url);
+        post();
+    }
+
+    public void post(String url, String param){
+        setParam(param);
+        post(url);
+    }
+
+    public void post(String url, String param, String header){
+        setHeader(header);
+        post(url, param);
+    }
+
+    public void addHeader(){
+
+    }
+
+
+    public String post(String s, Map<String, String> params) {
         return null;
     }
 }
