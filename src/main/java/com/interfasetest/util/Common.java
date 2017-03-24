@@ -37,14 +37,17 @@ public class Common {
      *
      * @param str
      *          待加密的字符串
-     * @param publicKey
-     *          公钥
      * @return
      *          加密后的字符串
      */
-    public static String encryptByPublicKey(String str, String publicKey){
+    public static String encryptByPublicKey(String str){
         try {
-            return new String(RSACoder.encryptByPublicKey(str.getBytes(), publicKey));
+            byte[] cipherData = RSAEncrypt.encrypt(
+                    RSAEncrypt.loadPublicKeyByStr(
+                            RSAEncrypt.loadPublicKeyByFile(
+                                    Common.class.getClassLoader().getResource("keys").
+                                            getPath())),str.getBytes());
+            return Base64.encode(cipherData);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("RSA公钥加密出现错误");

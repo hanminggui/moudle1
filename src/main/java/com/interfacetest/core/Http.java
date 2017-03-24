@@ -41,6 +41,7 @@ public class Http {
         HttpResponse response = null;
         try {
             response = closeableHttpClient.execute(httpGet);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

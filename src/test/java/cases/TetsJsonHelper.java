@@ -15,16 +15,17 @@ public class TetsJsonHelper {
         return new Object[][]{
                 {"{\"a\":\"a\"}","a","a"},
                 {"{\"a\":{\"b\":\"b\"}}","a.b","b"},
-                {"{\"a\":[{\"b\":1},{\"c\":\"c\"}]}","a.0.b","1"},
-                {"{\"a\":[{\"b\":1},{\"c\":\"c\"}]}","a.1.c","c"},
-                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"}]}}]}","a.1.d.e.0.f","f"},
-                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"}]}}]}","a.1.d.e.f","f"},
-                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"},{\"g\":\"g\"}]}}]}","a.1.d.e.g","null"}
+                {"{\"a\":[{\"b\":1},{\"c\":\"c\"}]}","a[0].b","1"},
+                {"{\"a\":[{\"b\":1},{\"c\":\"c\"}]}","a[1].c","c"},
+                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"}]}}]}","a[1].d.e[0].f","f"},
+                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"}]}}]}","a[1].d.e.f","f"},
+                {"{\"a\":[{\"b\":1},{\"c\":\"c\",\"d\":{\"e\":[{\"f\":\"f\"},{\"g\":\"g\"}]}}]}","a[1].d.e.g","null"}
         };
     }
 
     @Test(dataProvider="json")
-    public void test(String json, String key, String value){
+    public void testGetValue(String json, String key, String value){
         Assert.assertEquals(value, new JsonHelper().getValue(json,key.split("\\.")));
     }
+
 }
