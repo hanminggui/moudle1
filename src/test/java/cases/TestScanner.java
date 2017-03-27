@@ -13,17 +13,22 @@ public class TestScanner {
 
     public static void main(String args[]) throws Exception {
 
+        String user = "13200002732";
+//        String user = "15600212730";
+        String pass = "123456";
 
-        String s = Common.getMD5("123456");
-        System.out.println(s);
-        String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCgSxoiHRZ7P/OhBhxRDhs/cs6C\n" +
-                "w67/NJum28LtKByzEVexcnYiwlWdDXk6zWau+9Ig8NJbxxjjj4sUjnXUKoJb41mE\n" +
-                "aXQvCTdorDS75G05PrAjE24hYrlwxHyvNFMGRbHb6/vDdfnU2+zGf+QN7nnkRWzy\n" +
-                "w2LT+zH28r0bKML6MwIDAQAB";
-        s = Common.encryptByPublicKey("15600212730");
-        System.out.println(s);
-        s = Common.encryptByPublicKey("asdfghjkl");
-        System.out.println(s);
+        System.out.println("账号明文:" + user);
+        System.out.println("账号密文:" + Common.encryptByPublicKey(user));
+        System.out.println("密码明文:" + pass);
+        System.out.println("密码密文:" + Common.encryptByPublicKey(Common.getMD5(pass)));
+
+
+//        String s = Common.getMD5("123456");
+//        System.out.println(s);
+//        s = Common.encryptByPublicKey("15600212730");
+//        System.out.println(s);
+//        s = Common.encryptByPublicKey("asdfghjkl");
+//        System.out.println(s);
 
 
     }

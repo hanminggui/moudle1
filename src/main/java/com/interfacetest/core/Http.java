@@ -1,12 +1,21 @@
 package com.interfacetest.core;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import static org.apache.commons.codec.Charsets.UTF_8;
 
 /**
  * Created by han on 2017/3/3.
@@ -17,6 +26,7 @@ public class Http {
     private String param;
     private String header;
     private String encode = "utf-8";
+
 
     public Http(){
     }
@@ -78,6 +88,13 @@ public class Http {
          * set header and param
          */
 
+        HttpPost post = new HttpPost(this.url);
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("1", "2"));
+
+        HttpEntity param = new UrlEncodedFormEntity(params,UTF_8);
+        post.setEntity(param);
+
     }
 
     public void post(String url){
@@ -103,4 +120,6 @@ public class Http {
     public String post(String s, Map<String, String> params) {
         return null;
     }
+
+
 }
