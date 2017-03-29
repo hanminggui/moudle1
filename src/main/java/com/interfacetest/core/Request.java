@@ -60,6 +60,14 @@ public class Request {
         this.taskId = taskId;
     }
 
+    public long getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(long runTime) {
+        this.runTime = runTime;
+    }
+
     /**
      * 请求的url
      */
@@ -94,4 +102,9 @@ public class Request {
      * 本次测试唯一标识符
      */
     private String taskId;
+
+    /**
+     * 接口运行时间
+     */
+    private long runTime;
 }

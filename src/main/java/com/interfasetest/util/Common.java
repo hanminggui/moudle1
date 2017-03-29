@@ -1,6 +1,8 @@
 package com.interfasetest.util;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by han on 2017/3/3.
@@ -52,6 +54,25 @@ public class Common {
             e.printStackTrace();
             throw new RuntimeException("RSA公钥加密出现错误");
         }
+    }
+
+    /**
+     * 拆分字符串
+     * @param str
+     * @param s1
+     * @param s2
+     * @return
+     *  map
+     */
+    public static Map<Object, Object> split(String str, String s1, String s2){
+        String strs[] = str.split(s1);
+        Map<Object, Object> mapStrs = new HashMap<>();
+        for(int i=0; i<strs.length; i++){
+            String[] strsI = strs[i].split(s2);
+            mapStrs.put(strsI[0], strsI[1]);
+        }
+
+        return mapStrs;
     }
 
 
