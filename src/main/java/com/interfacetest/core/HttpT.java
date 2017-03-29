@@ -1,8 +1,8 @@
 package com.interfacetest.core;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,7 +14,6 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,17 +48,41 @@ public class HttpT {
     }
 
     static CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
-    public Request get(String url){
+    public Request get(){
+        //get请求的参数
+        String param = "";
+        //计算get请求的响应时间
         Long startTime,endTime;
+        //设置请求超时时长
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(20000).setConnectTimeout(20000).build();
         log.info("------------------------开始请求------------------------");
+        log.info("接口类型：get");
         log.info("接口URL为：" + url);
-        startTime = new Date().getTime();
+        /**
+         * create by song
+         * 设置get请求参数 并和url进行拼接为完整的请求地址
+         */
+        for (Map.Entry<Object,Object> entry : params.entrySet()) {
+            if(param.equals("") || param == null){
+                param = param + "&";
+            }
+            param = entry.getKey().toString()+"="+entry.getValue().toString();
+            //打请求印参数信息
+            log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
+        }
+        url = url + "?" + param;
+        //创建httpGet对象
         HttpGet httpGet = new HttpGet(url);
+        //设置请求配置
+        httpGet.setConfig(requestConfig);
+        //返回报告对象
         CloseableHttpResponse response = null;
+        //请求开始时间
+        startTime = new Date().getTime();
         try {
             response = closeableHttpClient.execute(httpGet);
-            endTime = new Date().getTime();
             HttpEntity entity = response.getEntity();
+            endTime = new Date().getTime();
             if (entity != null) {
                 log.info("接口响应返回值为：" + EntityUtils.toString(entity,encode));
             }
@@ -68,7 +91,12 @@ public class HttpT {
             e.printStackTrace();
         } finally {
             try{
-                response.close();
+                if(httpGet!=null){
+                    httpGet.releaseConnection();
+                }
+                if(response!=null || !response.equals("")){
+                    response.close();
+                }
                 log.info("------------------------请求结束------------------------");
             } catch(IOException ioe) {
                 log.error("关闭请求失败");
@@ -91,8 +119,8 @@ public class HttpT {
         CloseableHttpResponse response = null;
         try {
             response = closeableHttpClient.execute(post);
-            endTime = new Date().getTime();
             HttpEntity entity = response.getEntity();
+            endTime = new Date().getTime();
             if (entity != null) {
                 log.info("接口响应返回值为：" + EntityUtils.toString(entity,encode));
             }
@@ -121,8 +149,8 @@ public class HttpT {
             log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
             param.add(new BasicNameValuePair(entry.getKey().toString(), entry.getValue().toString()));
         }
-        HttpEntity param1 = new UrlEncodedFormEntity(param,UTF_8);
-        return param1;
+        HttpEntity entity = new UrlEncodedFormEntity(param,UTF_8);
+        return entity;
     }
 
 }

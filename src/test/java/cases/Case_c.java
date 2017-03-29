@@ -18,7 +18,7 @@ public class Case_c {
         param.put("pageSize",25);
         param.put("areaCode","880000");
         HttpT http = new HttpT("http://apps.faxuan.net/appbss/service/getappbasenewslist",param);
-        http.post();
+        http.get();
 
     }
 }
