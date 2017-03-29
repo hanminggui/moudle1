@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -157,7 +158,7 @@ public class Http {
     private List<NameValuePair> mapToParam(Map<Object, Object> map){
         List<NameValuePair> param = new ArrayList<>();
         for (Map.Entry<Object,Object> entry : map.entrySet()) {
-            log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
+//            log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
             param.add(new BasicNameValuePair(entry.getKey().toString(), entry.getValue().toString()));
         }
         return param;
@@ -191,9 +192,17 @@ public class Http {
         Request req = new Request();
         req.setRequestType(RequestType.POST);
         req.setUrl(this.url);
-        req.setResult(response.getEntity().toString());
+
+        try {
+            req.setResult(EntityUtils.toString(response.getEntity(), encode));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         req.setCode(response.getStatusLine().getStatusCode());
         req.setRunTime(runTime);
+
+        log.info(req);
 
         return req;
     }
@@ -208,7 +217,7 @@ public class Http {
         return get(url);
     }
 
-    
+
 
     /**
      * doPost
@@ -236,9 +245,18 @@ public class Http {
         Request req = new Request();
         req.setRequestType(RequestType.POST);
         req.setUrl(this.url);
-        req.setResult(response.getEntity().toString());
+        req.setParam(entity.toString()); //现在保存的参数还有问题 需要修改
+
+        try {
+            req.setResult(EntityUtils.toString(response.getEntity(), encode));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         req.setCode(response.getStatusLine().getStatusCode());
         req.setRunTime(runTime);
+
+        log.info(req);
 
         return req;
     }

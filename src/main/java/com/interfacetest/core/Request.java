@@ -1,5 +1,7 @@
 package com.interfacetest.core;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * Created by han on 2017/3/3.
  */
@@ -10,6 +12,15 @@ public class Request {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
     }
 
     public RequestType getRequestType() {
@@ -68,10 +79,30 @@ public class Request {
         this.runTime = runTime;
     }
 
+    @Override
+    public String toString() {
+        return JSON.toJSON(this).toString();
+//        return "Request{" +
+//                "url='" + url + '\'' +
+//                ", requestType=" + requestType +
+//                ", code=" + code +
+//                ", result='" + result + '\'' +
+//                ", testResult=" + testResult +
+//                ", testResultContent='" + testResultContent + '\'' +
+//                ", taskId='" + taskId + '\'' +
+//                ", runTime=" + runTime +
+//                '}';
+    }
+
     /**
      * 请求的url
      */
     private String url;
+
+    /**
+     * 请求的参数
+     */
+    private String param;
 
     /**
      * 请求方式

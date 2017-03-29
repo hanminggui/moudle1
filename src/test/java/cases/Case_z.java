@@ -1,9 +1,16 @@
 package cases;
 
+import com.interfacetest.core.Http;
+
 /**
  * Created by han on 2017/3/3.
  */
 public class Case_z {
+
+    public static void main(String[] args){
+        new Http().setUrl("http://www.baidu.com").get();
+        new Http().setUrl("http://www.webservicex.net/whois.asmx/GetWhoIS").setParams("HostName=www.google.com").post();
+    }
 
 //    @DataProvider
 //    @Test
