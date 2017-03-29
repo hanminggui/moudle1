@@ -12,7 +12,6 @@ import java.util.Map;
 /**
  * RSA安全编码组件
  *
- * @author 梁栋
  * @version 1.0
  * @since 1.0
  */
