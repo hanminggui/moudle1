@@ -67,7 +67,8 @@ public class Http {
 
     static CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 
-    public Request get(){
+    public Request doGet(){
+
         HttpGet httpGet = new HttpGet("http://www.cnblogs.com/loveyakamoz/archive/2011/07/21/2113252.html");
         HttpResponse response = null;
         try {
