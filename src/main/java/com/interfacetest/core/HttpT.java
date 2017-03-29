@@ -31,7 +31,7 @@ public class HttpT {
     private Map<Object,Object> params;
     public Logger log = Logger.getLogger(this.getClass());
     Request req = new Request();
-    List<NameValuePair> param = new ArrayList<NameValuePair>();
+
 
 
     public HttpT() {}
@@ -63,14 +63,15 @@ public class HttpT {
          * 设置get请求参数 并和url进行拼接为完整的请求地址
          */
         for (Map.Entry<Object,Object> entry : params.entrySet()) {
-            if(param.equals("") || param == null){
+            if(!param.equals("")){
                 param = param + "&";
             }
-            param = entry.getKey().toString()+"="+entry.getValue().toString();
+            param += entry.getKey().toString()+"="+entry.getValue().toString();
             //打请求印参数信息
             log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
         }
         url = url + "?" + param;
+log.error(url);
         //创建httpGet对象
         HttpGet httpGet = new HttpGet(url);
         //设置请求配置
@@ -145,6 +146,7 @@ public class HttpT {
      * 循环添加参数
      */
     public HttpEntity addParams(Map<Object,Object> params) {
+        List<NameValuePair> param = new ArrayList<NameValuePair>();
         for (Map.Entry<Object,Object> entry : params.entrySet()) {
             log.info("参数：\"" +entry.getKey() + "\":\"" + entry.getValue() + "\"");
             param.add(new BasicNameValuePair(entry.getKey().toString(), entry.getValue().toString()));
