@@ -79,6 +79,10 @@ public class Common {
         return mapStrs;
     }
 
+    public static void getConfig(){
+
+    }
+
 
 
 }

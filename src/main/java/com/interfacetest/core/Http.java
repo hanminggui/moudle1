@@ -13,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
@@ -25,20 +26,40 @@ import static org.apache.commons.codec.Charsets.UTF_8;
  */
 public class Http {
 
-    private static final String SPLIT_ENTRY = "&";
-    private static final String SPLIT_KEY_VALUE = "=";
-    private String url;
-    private Logger log = Logger.getLogger(this.getClass());
+    //拆分参数默认字符
+    private static String SPLIT_ENTRY = "&";
+    private static String SPLIT_KEY_VALUE = "=";
+
+    /**
+     * 编码默认为utf-8
+     */
     private String encode = "utf-8";
+
+    private String host;
+    private String path;
+    private String url;
     private List<NameValuePair> param = new ArrayList<>();
     private Map<Object, Object> headers = new HashMap<>();
+
     private CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
+
+    private Logger log = Logger.getLogger(this.getClass());
 
 
     /**
      * 无参构造方法
      */
     public Http(){
+        Properties pro = new Properties();
+        try {
+            pro.load(this.getClass().getClassLoader().getResourceAsStream( "http.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SPLIT_ENTRY = pro.getProperty("http.split.entry") != null ? pro.getProperty("http.split.entry") : SPLIT_ENTRY;
+        SPLIT_KEY_VALUE = pro.getProperty("http.split.key.value") != null ? pro.getProperty("http.split.key.value") : SPLIT_KEY_VALUE;
+        encode = pro.getProperty("http.encode") != null ? pro.getProperty("http.encode") : encode;
+        setHost(pro.getProperty(pro.getProperty("http.host")));
     }
 
     /**
@@ -83,6 +104,48 @@ public class Http {
         this.setHeaders(headers);
     }
 
+    /**
+     * 取出域名
+     *
+     * @return
+     *  配置的域名
+     */
+    public String getHost() {
+        return host;
+    }
+
+    /**
+     * 设置域名
+     *
+     * @param host
+     * 指定域名
+     */
+    public Http setHost(String host) {
+        this.host = host;
+        return this;
+    }
+
+    /**
+     * 取出请求路径
+     *
+     * @return
+     * 请求路径
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * 设置请求路径
+     *
+     * @param path
+     * 路径
+     */
+    public Http setPath(String path) {
+        this.path = path;
+        this.setUrl(getHost() + getPath());
+        return this;
+    }
 
     /**
      * 设置url

@@ -10,6 +10,12 @@ public class Case_z {
     public static void main(String[] args){
         new Http().setUrl("http://www.baidu.com").get();
         new Http().setUrl("http://www.webservicex.net/whois.asmx/GetWhoIS").setParams("HostName=www.google.com").post();
+        new Http().setPath("api/ivy_lgrg")
+                .setParams("method=POST&uuid=39351c992cba4a748b631bdced15ef1a&sign=88334aa81037a8f21145ec2e455d7855&userInfo={nick_name:张大,sex:1, baby_sex :1, baby_name:“张三”，baby_birthday:0000-00-00,\"avatar_url\":\"http://aaa\"} ")
+                .post();
+
+
+
     }
 
 //    @DataProvider
