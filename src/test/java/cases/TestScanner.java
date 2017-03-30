@@ -1,10 +1,6 @@
 package cases;
 
-import com.interfasetest.util.Base64;
-import com.interfasetest.util.Common;
-import com.interfasetest.util.RSAEncrypt;
-
-import java.io.File;
+import com.interfacetest.util.Common;
 
 /**
  * Created by han on 2017/3/20.
@@ -13,7 +9,7 @@ public class TestScanner {
 
     public static void main(String args[]) throws Exception {
 
-        String user = "13200002732";
+        String user = "13200002734";
 //        String user = "15600212730";
         String pass = "123456";
 

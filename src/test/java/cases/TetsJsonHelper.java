@@ -1,6 +1,6 @@
 package cases;
 
-import com.interfasetest.util.JsonHelper;
+import com.interfacetest.util.JsonHelper;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

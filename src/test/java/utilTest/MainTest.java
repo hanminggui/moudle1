@@ -1,9 +1,9 @@
 package utilTest;
 
 
-import com.interfasetest.util.Base64;
-import com.interfasetest.util.RSAEncrypt;
-import com.interfasetest.util.RSASignature;
+import com.interfacetest.encryption.Base64;
+import com.interfacetest.encryption.RSAEncrypt;
+import com.interfacetest.encryption.RSASignature;
 
 public class MainTest {
 

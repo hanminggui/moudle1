@@ -1,4 +1,4 @@
-package com.interfasetest.util;
+package com.interfacetest.encryption;
 
 import javax.crypto.Cipher;
 import java.security.*;

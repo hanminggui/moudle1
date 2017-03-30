@@ -1,4 +1,4 @@
-package com.interfasetest.util;
+package com.interfacetest.encryption;
 
 /**
  * Created by jd on 2017/3/22.

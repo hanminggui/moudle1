@@ -1,4 +1,4 @@
-package com.interfasetest.util;
+package com.interfacetest.encryption;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

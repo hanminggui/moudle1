@@ -1,6 +1,6 @@
 package com.interfacetest.core;
 
-import com.interfasetest.util.Common;
+import com.interfacetest.util.Common;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
