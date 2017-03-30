@@ -35,125 +35,246 @@ public class Http {
     private CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 
 
-
+    /**
+     * 无参构造方法
+     */
     public Http(){
     }
 
+    /**
+     * 构造时设置url
+     *
+     * @param url
+     *  请求的url
+     */
     public Http(String url){
+        this();
         setUrl(url);
     }
 
+    /**
+     * 构造时设置url和参数
+     *
+     * @param url
+     *  请求的url
+     *
+     * @param param
+     *  请求的参数
+     */
     public Http(String url, String param) {
         this(url);
         this.setParams(param);
     }
 
+    /**
+     * 构造时设置url和参数、请求头
+     *
+     * @param url
+     *  请求的url
+     *
+     * @param param
+     *  请求的参数
+     *
+     * @param headers
+     *  请求头
+     */
     public Http(String url, String param, String headers) {
         this(url, param);
-        this.setHeader(headers);
+        this.setHeaders(headers);
     }
 
 
     /**
+     * 设置url
      *
      * @param url
+     *  请求的url
+     *
      * @return
+     *  this
      */
     public Http setUrl(String url){
         this.url = url;
         return this;
     }
 
+    /**
+     * 取出url
+     *
+     * @return
+     *  url
+     */
     public String getUrl() {
         return url;
     }
 
     /**
+     * 取出编码设置
      *
      * @return
+     *  encode
      */
     public String getEncode() {
         return encode;
     }
 
+    /**
+     * 设置编码
+     *
+     * @param encode
+     *  encode
+     */
     public void setEncode(String encode) {
         this.encode = encode;
     }
 
 
     /**
+     * 批量设置参数(覆盖)
      *
      * @param params
+     *  key=value&key1=value1&key2=value2 格式的参数
+     *
      * @return
+     *  this
      */
     public Http setParams(String params){
         return setParams(Common.split(params, SPLIT_ENTRY, SPLIT_KEY_VALUE));
     }
 
+    /**
+     * 批量设置参数(覆盖)
+     *
+     * @param params
+     *  Map<Object, Object> 类型的参数
+     *
+     * @return
+     *  this
+     */
     public Http setParams(Map<Object, Object> params){
         this.param = mapToParam(params);
         return this;
     }
 
+    /**
+     * 增加一个参数(增量)
+     *
+     * @param key
+     *  参数名
+     *
+     * @param value
+     *  参数值
+     *
+     * @return
+     *  this
+     */
     public Http addParam(String key, String value){
         this.param.add(new BasicNameValuePair(key, value));
         return this;
     }
 
+    /**
+     * 增加一个参数(增量)
+     *
+     * @param keyValue
+     *  key=value 格式的参数
+     *
+     * @return
+     *  this
+     */
     public Http addParam(String keyValue){
         String[] keyAndValue = keyValue.split(this.SPLIT_KEY_VALUE);
         return addParam(keyAndValue[0], keyAndValue[1]);
     }
 
+    /**
+     * 取出参数
+     *
+     * @return
+     *  List<NameValuePair>参数集合
+     */
     public List<NameValuePair> getParam() {
         return param;
     }
 
 
     /**
+     * 设置请求头(覆盖)
      *
      * @param headers
+     *  key=value&key1=value1&key2=value2 格式的请求头
+     *
      * @return
+     *  this
      */
     public Http setHeaders(String headers){
         return setHeaders(Common.split(headers, SPLIT_ENTRY, SPLIT_KEY_VALUE));
     }
 
+    /**
+     * 设置请求头(覆盖)
+     *
+     * @param headers
+     *  Map<Object, Object> 类型的请求头
+     *
+     * @return
+     * this
+     */
     public Http setHeaders(Map<Object, Object> headers){
         this.headers = headers;
         return this;
     }
 
-    public Http setHeader(String key, String value){
-        this.headers.clear();
-        this.headers.put(key, value);
-        return this;
-    }
-
-    public Http setHeader(String header){
-        String[] keyAndValue = header.split(this.SPLIT_KEY_VALUE);
-        return setHeader(keyAndValue[0], keyAndValue[1]);
-    }
-
+    /**
+     * 增加请求头(增量)
+     *
+     * @param header
+     *  key=value 格式的请求头
+     *
+     * @return
+     *  this
+     */
     public Http addHeader(String header){
         String[] keyAndValue = header.split(this.SPLIT_KEY_VALUE);
         return addHeader(keyAndValue[0], keyAndValue[1]);
     }
 
+    /**
+     * 增加请求头(增量)
+     *
+     * @param key
+     *  header的key
+     *
+     * @param value
+     *  header的value
+     *
+     * @return
+     *  this
+     */
     public Http addHeader(String key, String value){
         this.headers.put(key, value);
         return this;
     }
 
+    /**
+     * 取出headers
+     *
+     * @return
+     *  Map<Object, Object> headers
+     */
     public Map<Object, Object> getHeaders() {
         return headers;
     }
 
 
     /**
-     * map转成http请求类型的List
+     * Map<Object, Object>转成List<NameValuePair>
+     *
      * @param map
+     *  Map<Object, Object> map
+     *
      * @return
+     *  List<NameValuePair>
      */
     private List<NameValuePair> mapToParam(Map<Object, Object> map){
         List<NameValuePair> param = new ArrayList<>();
@@ -166,8 +287,16 @@ public class Http {
 
 
     /**
-     * doGet
+     * 发送get请求
+     *
      * @return
+     *  Request对象
+     *  包含：
+     *      请求类型
+     *      url
+     *      返回结果
+     *      状态码
+     *      响应时间
      */
     public Request get(){
 
@@ -207,11 +336,22 @@ public class Http {
         return req;
     }
 
+    /**
+     *
+     * @param url
+     * @return
+     */
     public Request get(String url){
         setUrl(url);
         return get();
     }
 
+    /**
+     *
+     * @param url
+     * @param headers
+     * @return
+     */
     public Request get(String url, String headers){
         setHeaders(headers);
         return get(url);
@@ -220,8 +360,16 @@ public class Http {
 
 
     /**
-     * doPost
+     * 发送post请求
+     *
      * @return
+     *  Request对象
+     *  包含：
+     *      请求类型
+     *      url
+     *      返回结果
+     *      状态码
+     *      响应时间
      */
     public Request post(){
         HttpPost post = new HttpPost();
@@ -261,18 +409,54 @@ public class Http {
         return req;
     }
 
+    /**
+     * 发送post请求时设置url
+     *
+     * @param url
+     *  url
+     *
+     * @return
+     *  和无参post()一样
+     */
     public Request post(String url){
         setUrl(url);
         return post();
     }
 
+    /**
+     * 发送post请求时设置url、参数
+     *
+     * @param url
+     *  url
+     *
+     * @param param
+     *  参数
+     *
+     * @return
+     *  和无参post()一样
+     */
     public Request post(String url, String param){
         setParams(param);
         return post(url);
     }
 
+    /**
+     * 发送post请求时设置url、参数、请求头
+     *
+     * @param url
+     *  url
+     *
+     * @param param
+     *  参数
+     *
+     * @param header
+     *  请求头
+     *
+     * @return
+     *  和无参post()一样
+     */
     public Request post(String url, String param, String header){
-        setHeader(header);
+        setHeaders(header);
         return post(url, param);
     }
 
