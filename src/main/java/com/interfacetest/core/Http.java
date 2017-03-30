@@ -337,9 +337,13 @@ public class Http {
     }
 
     /**
+     * 发送get请求时设置url
      *
      * @param url
+     *  url
+     *
      * @return
+     *  和无参get()一样
      */
     public Request get(String url){
         setUrl(url);
@@ -347,10 +351,16 @@ public class Http {
     }
 
     /**
+     * 发送get请求时设置url、请求头
      *
      * @param url
+     *  url
+     *
      * @param headers
+     *  请求头
+     *
      * @return
+     *  和无参get()一样
      */
     public Request get(String url, String headers){
         setHeaders(headers);
@@ -367,6 +377,7 @@ public class Http {
      *  包含：
      *      请求类型
      *      url
+     *      参数
      *      返回结果
      *      状态码
      *      响应时间
