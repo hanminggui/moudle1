@@ -1,4 +1,4 @@
-package com.interfacetest.core;
+package com.interfacetest.http;
 
 import com.alibaba.fastjson.JSON;
 

@@ -1,6 +1,6 @@
 package cases;
 
-import com.interfacetest.core.Request;
+import com.interfacetest.http.Request;
 import com.interfacetest.http.Get;
 import com.interfacetest.http.Post;
 
