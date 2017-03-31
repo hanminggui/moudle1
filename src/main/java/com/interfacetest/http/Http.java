@@ -1,9 +1,13 @@
 package com.interfacetest.http;
 
 import com.interfacetest.core.Request;
+import com.interfacetest.core.RequestType;
 import com.interfacetest.util.Common;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -17,24 +21,29 @@ import java.util.Properties;
 public class Http {
 
     //拆分参数默认字符
-    private static String SPLIT_ENTRY = "&";
-    private static String SPLIT_KEY_VALUE = "=";
+    protected static String SPLIT_ENTRY = "&";
+    protected static String SPLIT_KEY_VALUE = "=";
 
     /**
      * 编码默认为utf-8
      */
-    private String encode = "utf-8";
+    protected String encode = "utf-8";
 
-    private String host;
-    private String path;
-    private String url;
-    private String param;
-    private Map<Object, Object> headers = new HashMap<>();
+    protected String host;
+    protected String path;
+    protected String url;
+    protected Object param;
+    protected RequestType type;
+    protected Map<Object, Object> headers = new HashMap<>();
 
-    private CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
+    protected CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 
-    private Logger log = Logger.getLogger(this.getClass());
+    protected Logger log = Logger.getLogger(this.getClass());
 
+
+    public Request send(){
+        return null;
+    }
 
     /**
      * 无参构造方法
@@ -159,15 +168,22 @@ public class Http {
         return this;
     }
 
-    public String getParam() {
+    public Object getParam() {
         return param;
     }
 
-    public Http setParam(String param) {
+    public Http setParam(Object param) {
         this.param = param;
         return this;
     }
 
+    public RequestType getType() {
+        return type;
+    }
+
+    public void setType(RequestType type) {
+        this.type = type;
+    }
 
     /**
      * 设置请求头(覆盖)
@@ -237,10 +253,44 @@ public class Http {
         return headers;
     }
 
-    private Request buildRequest(Request req){
-        req.setUrl(this.url);
-        req.setParam(this.param);
-        req.setHeader(this.headers.toString());
+
+    /**
+     * header数组 转 Map<Object, Object>
+     *
+     * @param headers
+     *  待转换的headers
+     *
+     * @return
+     * Map<Object, Object> headers
+     */
+    protected Map<Object, Object> arrayToMap(Header[] headers){
+        Map<Object, Object> mapHeaders = new HashMap<>();
+        for (int i=0; i<headers.length; i++){
+            mapHeaders.put(headers[i].getName(), headers[i].getValue());
+        }
+        return mapHeaders;
+    }
+
+    /**
+     * 填充通用字段
+     * @param req
+     * @return
+     */
+    protected Request buildRequest(Request req, HttpResponse response){
+        if (getUrl() != null) req.setUrl(getUrl().toString());
+        if (getParam() != null) req.setParam(getParam().toString());
+        if(getHeaders() != null) req.setHeader(getHeaders().toString());
+        if(getType() != null) req.setType(getType());
+        if(null != response){
+
+            req.setResultHeader(arrayToMap(response.getAllHeaders()).toString());
+            req.setStatus(response.getStatusLine().getStatusCode());
+            try {
+                req.setResult(EntityUtils.toString(response.getEntity(), encode));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return req;
     }
 

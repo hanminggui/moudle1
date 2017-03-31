@@ -23,12 +23,12 @@ public class Request {
         this.param = param;
     }
 
-    public RequestType getRequestType() {
-        return requestType;
+    public RequestType getType() {
+        return type;
     }
 
-    public void setRequestType(RequestType requestType) {
-        this.requestType = requestType;
+    public void setType(RequestType type) {
+        this.type = type;
     }
 
     public int getStatus() {
@@ -138,7 +138,7 @@ public class Request {
     /**
      * 请求方式
      */
-    private RequestType requestType;
+    private RequestType type;
 
     /**
      * 返回的状态码

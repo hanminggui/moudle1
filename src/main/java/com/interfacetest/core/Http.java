@@ -401,7 +401,7 @@ public class Http {
         long runTime = new Date().getTime() - beginTime;
 
         Request req = new Request();
-        req.setRequestType(RequestType.POST);
+        req.setType(RequestType.POST);
         req.setUrl(this.url);
         req.setHeader(headers.toString());
         req.setResultHeader(arrayToMap(response.getAllHeaders()).toString());
@@ -487,7 +487,7 @@ public class Http {
 
 
         Request req = new Request();
-        req.setRequestType(RequestType.POST);
+        req.setType(RequestType.POST);
         req.setUrl(this.url);
         req.setEntity(entity.toString());
         req.setParam(param.toString());
