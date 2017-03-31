@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
@@ -391,7 +390,7 @@ public class Http {
             e.printStackTrace();
         }
 
-        req.setCode(response.getStatusLine().getStatusCode());
+        req.setStatus(response.getStatusLine().getStatusCode());
         req.setRunTime(runTime);
 
         log.info(req);
@@ -475,7 +474,7 @@ public class Http {
             e.printStackTrace();
         }
 
-        req.setCode(response.getStatusLine().getStatusCode());
+        req.setStatus(response.getStatusLine().getStatusCode());
         req.setRunTime(runTime);
 
         log.info(req);

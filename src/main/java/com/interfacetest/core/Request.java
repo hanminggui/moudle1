@@ -31,12 +31,12 @@ public class Request {
         this.requestType = requestType;
     }
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int code) {
+        this.status = code;
     }
 
     public String getResult() {
@@ -112,7 +112,7 @@ public class Request {
     /**
      * 返回的状态码
      */
-    private int code;
+    private int status;
 
     /**
      * 返回的结果
