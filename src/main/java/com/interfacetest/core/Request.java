@@ -79,6 +79,30 @@ public class Request {
         this.runTime = runTime;
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String inHeader) {
+        this.header = inHeader;
+    }
+
+    public String getResultHeader() {
+        return resultHeader;
+    }
+
+    public void setResultHeader(String outHeader) {
+        resultHeader = outHeader;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
     @Override
     public String toString() {
         return JSON.toJSON(this).toString();
@@ -103,6 +127,13 @@ public class Request {
      * 请求的参数
      */
     private String param;
+
+    private String header;
+
+    private String resultHeader;
+
+    private String entity;
+
 
     /**
      * 请求方式

@@ -21,7 +21,7 @@ public class JsonHelper {
      *              keys=a.c  return null       路径中包含数组时第0个数组里没有key=c所以返回null
      * @return
      */
-    public String getValue(String json, String keys[]){
+    public static String getValue(String json, String keys[]){
         if(null == keys || keys.length == 0){
             return null;
         }

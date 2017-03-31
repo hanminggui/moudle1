@@ -1,6 +1,7 @@
 package com.interfacetest.core;
 
 import com.interfacetest.util.Common;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -186,8 +187,9 @@ public class Http {
      * @param encode
      *  encode
      */
-    public void setEncode(String encode) {
+    public Http setEncode(String encode) {
         this.encode = encode;
+        return this;
     }
 
 
@@ -349,6 +351,24 @@ public class Http {
 
 
     /**
+     * header数组 转 Map<Object, Object>
+     *
+     * @param headers
+     *  待转换的headers
+     *
+     * @return
+     * Map<Object, Object> headers
+     */
+    private Map<Object, Object> arrayToMap(Header[] headers){
+        Map<Object, Object> mapHeaders = new HashMap<>();
+        for (int i=0; i<headers.length; i++){
+            mapHeaders.put(headers[i].getName(), headers[i].getValue());
+        }
+        return mapHeaders;
+    }
+
+
+    /**
      * 发送get请求
      *
      * @return
@@ -383,6 +403,8 @@ public class Http {
         Request req = new Request();
         req.setRequestType(RequestType.POST);
         req.setUrl(this.url);
+        req.setHeader(headers.toString());
+        req.setResultHeader(arrayToMap(response.getAllHeaders()).toString());
 
         try {
             req.setResult(EntityUtils.toString(response.getEntity(), encode));
@@ -463,19 +485,22 @@ public class Http {
         }
         long runTime = new Date().getTime() - beginTime;
 
+
         Request req = new Request();
         req.setRequestType(RequestType.POST);
         req.setUrl(this.url);
-        req.setParam(entity.toString()); //现在保存的参数还有问题 需要修改
-
+        req.setEntity(entity.toString());
+        req.setParam(param.toString());
+        req.setHeader(headers.toString());
+        req.setResultHeader(arrayToMap(response.getAllHeaders()).toString());
         try {
             req.setResult(EntityUtils.toString(response.getEntity(), encode));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         req.setStatus(response.getStatusLine().getStatusCode());
         req.setRunTime(runTime);
+
 
         log.info(req);
 
