@@ -3,27 +3,17 @@ package com.interfacetest.encryption;
 /**
  * Created by jd on 2017/3/22.
  */
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.*;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 
 public class RSAEncrypt {
@@ -77,10 +67,10 @@ public class RSAEncrypt {
     }
 
     /**
-     * 从文件中输入流中加载公钥
+     * 从文件中加载公钥
      *
-     * @param in
-     *            公钥输入流
+     * @param path
+     *            目录
      * @throws Exception
      *             加载公钥时产生的异常
      */
@@ -129,8 +119,8 @@ public class RSAEncrypt {
     /**
      * 从文件中加载私钥
      *
-     * @param keyFileName
-     *            私钥文件名
+     * @param path
+     *            目录
      * @return 是否成功
      * @throws Exception
      */
