@@ -16,7 +16,7 @@ import java.util.Properties;
 /**
  * Created by han on 2017/3/31.
  */
-public class Http {
+public abstract class Http {
 
     //拆分参数默认字符
     protected static String SPLIT_ENTRY = "&";
@@ -39,9 +39,7 @@ public class Http {
     protected Logger log = Logger.getLogger(this.getClass());
 
 
-    public Request send(){
-        return null;
-    }
+    public abstract Request send();
 
     /**
      * 无参构造方法
