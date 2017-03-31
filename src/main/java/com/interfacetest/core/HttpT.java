@@ -1,5 +1,6 @@
 package com.interfacetest.core;
 
+import com.interfacetest.http.Request;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;

@@ -1,5 +1,7 @@
 package com.interfacetest.core;
 
+import com.interfacetest.http.Request;
+import com.interfacetest.http.RequestType;
 import com.interfacetest.util.Common;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
