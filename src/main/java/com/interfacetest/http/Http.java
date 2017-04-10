@@ -45,12 +45,7 @@ public abstract class Http {
      * 无参构造方法
      */
     public Http(){
-        Properties pro = new Properties();
-        try {
-            pro.load(this.getClass().getClassLoader().getResourceAsStream( "http.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Properties pro = Common.getConfig("http.properties");
         SPLIT_ENTRY = pro.getProperty("http.split.entry") != null ? pro.getProperty("http.split.entry") : SPLIT_ENTRY;
         SPLIT_KEY_VALUE = pro.getProperty("http.split.key.value") != null ? pro.getProperty("http.split.key.value") : SPLIT_KEY_VALUE;
         encode = pro.getProperty("http.encode") != null ? pro.getProperty("http.encode") : encode;
