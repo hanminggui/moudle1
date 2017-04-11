@@ -5,6 +5,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
@@ -170,6 +171,22 @@ public abstract class Http {
 
     public Http setParam(Object param) {
         this.param = param;
+        return this;
+    }
+
+    /**
+     * 增加一个参数(增量)
+     *
+     * @param key
+     *  参数名
+     *
+     * @param value
+     *  参数值
+     *
+     * @return
+     *  this
+     */
+    public Http addParam(String key, String value){
         return this;
     }
 

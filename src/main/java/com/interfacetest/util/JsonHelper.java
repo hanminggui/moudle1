@@ -51,4 +51,8 @@ public class JsonHelper {
         return jo.get(keys[keys.length-1]) + "";
     }
 
+    public static String getValue(String json, String keys){
+        return getValue(json, keys.split("\\."));
+    }
+
 }
