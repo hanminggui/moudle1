@@ -4,9 +4,11 @@ import com.interfacetest.encryption.Base64;
 import com.interfacetest.encryption.Coder;
 import com.interfacetest.encryption.RSAEncrypt;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by han on 2017/3/3.
@@ -79,7 +81,21 @@ public class Common {
         return mapStrs;
     }
 
-    public static void getConfig(){
+    /**
+     * 取配置文件
+     * @param name
+     * @return
+     */
+    public static Properties getConfig(String name){
+
+        Properties pro = new Properties();
+        try {
+            pro.load(Common.class.getClassLoader().getResourceAsStream(name));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pro;
 
     }
 

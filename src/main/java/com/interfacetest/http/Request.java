@@ -2,10 +2,12 @@ package com.interfacetest.http;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.Serializable;
+
 /**
  * Created by han on 2017/3/3.
  */
-public class Request {
+public class Request implements Serializable {
     public String getUrl() {
         return url;
     }

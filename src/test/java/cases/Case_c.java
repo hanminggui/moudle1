@@ -11,4 +11,11 @@ import java.util.Map;
 public class Case_c {
 
 
+    @Test
+    public void test(){
+        Map<Object,Object> param = new HashMap<Object, Object>();
+        param.put("pageSize",25);
+        param.put("areaCode","880000");
+
+    }
 }

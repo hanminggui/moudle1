@@ -1,6 +1,5 @@
 package cases;
 
-import com.interfacetest.core.Http;
 import org.testng.annotations.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
