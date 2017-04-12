@@ -1,9 +1,11 @@
-package com.interfacetest.http;
+package com.interfacetest.http.bean;
 
 /**
  * Created by han on 2017/3/3.
+ *
+ * 接口请求方式
  */
-public enum RequestType {
+public enum RequestMethod {
     OPTIONS,
     HEAD,
     GET,

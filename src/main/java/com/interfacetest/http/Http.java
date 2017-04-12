@@ -1,11 +1,12 @@
 package com.interfacetest.http;
 
+import com.interfacetest.http.bean.Request;
+import com.interfacetest.http.bean.RequestMethod;
 import com.interfacetest.util.Common;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,7 @@ public abstract class Http {
     protected String path;
     protected String url;
     protected Object param;
-    protected RequestType type;
+    protected RequestMethod type;
     protected Map<Object, Object> headers = new HashMap<>();
 
     protected CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
@@ -185,11 +186,11 @@ public abstract class Http {
         return this;
     }
 
-    public RequestType getType() {
+    public RequestMethod getType() {
         return type;
     }
 
-    public void setType(RequestType type) {
+    public void setType(RequestMethod type) {
         this.type = type;
     }
 
@@ -288,7 +289,7 @@ public abstract class Http {
         if (getUrl() != null) req.setUrl(getUrl().toString());
         if (getParam() != null) req.setParam(getParam().toString());
         if(getHeaders() != null) req.setHeader(getHeaders().toString());
-        if(getType() != null) req.setType(getType());
+        if(getType() != null) req.setRequestMethod(getType());
         if(null != response){
 
             req.setResultHeader(arrayToMap(response.getAllHeaders()).toString());

@@ -1,5 +1,7 @@
 package com.interfacetest.http;
 
+import com.interfacetest.http.bean.Request;
+import com.interfacetest.http.bean.RequestMethod;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
@@ -15,7 +17,7 @@ public class Get extends Http {
 
     public Get(){
         super();
-        setType(RequestType.GET);
+        setType(RequestMethod.GET);
     }
 
     public Http setParam(Object param) {

@@ -1,10 +1,6 @@
 package cases;
 
-import com.interfacetest.http.Http;
-import com.interfacetest.http.Post;
-import com.interfacetest.http.Request;
 import com.interfacetest.util.Common;
-import com.interfacetest.util.JsonHelper;
 
 /**
  * Created by han on 2017/3/20.

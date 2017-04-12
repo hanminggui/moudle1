@@ -1,6 +1,6 @@
 package cases;
 
-import com.interfacetest.http.Interface;
+import com.interfacetest.http.bean.Interface;
 import com.interfacetest.util.JdbcUtils;
 
 import java.util.ArrayList;

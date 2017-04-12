@@ -1,7 +1,7 @@
 package cases;
 
 import com.interfacetest.http.Post;
-import com.interfacetest.http.Request;
+import com.interfacetest.http.bean.Request;
 import com.interfacetest.util.Common;
 import com.interfacetest.util.JsonHelper;
 import org.testng.Assert;

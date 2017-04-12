@@ -1,5 +1,7 @@
 package com.interfacetest.http;
 
+import com.interfacetest.http.bean.Request;
+import com.interfacetest.http.bean.RequestMethod;
 import com.interfacetest.util.Common;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -24,7 +26,7 @@ public class Post extends Http {
 
     public Post(){
         super();
-        setType(RequestType.POST);
+        setType(RequestMethod.POST);
     }
 
     private List<NameValuePair> param = new ArrayList<>();
@@ -51,7 +53,6 @@ public class Post extends Http {
         Request req = new Request();
         req = buildRequest(req, response);
 
-        req.setEntity(entity.toString());
         req.setRunTime(runTime);
 
         log.info(req);

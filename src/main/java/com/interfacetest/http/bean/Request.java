@@ -1,13 +1,13 @@
-package com.interfacetest.http;
+package com.interfacetest.http.bean;
 
 import com.alibaba.fastjson.JSON;
 
-import java.io.Serializable;
-
 /**
  * Created by han on 2017/3/3.
+ *
+ * 请求对象
  */
-public class Request implements Serializable {
+public class Request {
     public String getUrl() {
         return url;
     }
@@ -25,12 +25,12 @@ public class Request implements Serializable {
         this.param = param;
     }
 
-    public RequestType getType() {
-        return type;
+    public RequestMethod getRequestMethod() {
+        return requestMethod;
     }
 
-    public void setType(RequestType type) {
-        this.type = type;
+    public void setRequestMethod(RequestMethod requestMethod) {
+        this.requestMethod = requestMethod;
     }
 
     public int getStatus() {
@@ -47,30 +47,6 @@ public class Request implements Serializable {
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public boolean isTestResult() {
-        return testResult;
-    }
-
-    public void setTestResult(boolean testResult) {
-        this.testResult = testResult;
-    }
-
-    public String getTestResultContent() {
-        return testResultContent;
-    }
-
-    public void setTestResultContent(String testResultContent) {
-        this.testResultContent = testResultContent;
-    }
-
-    public String getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
     }
 
     public long getRunTime() {
@@ -97,12 +73,28 @@ public class Request implements Serializable {
         resultHeader = outHeader;
     }
 
-    public String getEntity() {
-        return entity;
+    public String getId() {
+        return id;
     }
 
-    public void setEntity(String entity) {
-        this.entity = entity;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getInterfaceId() {
+        return interfaceId;
+    }
+
+    public void setInterfaceId(String interfaceId) {
+        this.interfaceId = interfaceId;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
     }
 
     @Override
@@ -120,27 +112,48 @@ public class Request implements Serializable {
 //                '}';
     }
 
+
+    /**
+     * id
+     */
+    private String id;
+
+    /**
+     * 接口id
+     */
+    private String interfaceId;
+
+    /**
+     * 请求方式
+     */
+    private RequestMethod requestMethod;
+
     /**
      * 请求的url
      */
     private String url;
 
     /**
+     * 请求数据类型
+     */
+    private ContentType contentType;
+
+    /**
      * 请求的参数
      */
     private String param;
 
+    /**
+     * 请求头
+     */
     private String header;
 
-    private String resultHeader;
-
-    private String entity;
 
 
     /**
-     * 请求方式
+     * 返回的头
      */
-    private RequestType type;
+    private String resultHeader;
 
     /**
      * 返回的状态码
@@ -151,21 +164,6 @@ public class Request implements Serializable {
      * 返回的结果
      */
     private String result;
-
-    /**
-     * 测试结果
-     */
-    private boolean testResult;
-
-    /**
-     * 测试结果说明
-     */
-    private String testResultContent;
-
-    /**
-     * 本次测试唯一标识符
-     */
-    private String taskId;
 
     /**
      * 接口运行时间
