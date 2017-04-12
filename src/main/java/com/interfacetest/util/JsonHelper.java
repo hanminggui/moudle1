@@ -51,6 +51,15 @@ public class JsonHelper {
         return jo.get(keys[keys.length-1]) + "";
     }
 
+    /**
+     * 取出Json中指定的值
+     * @param json
+     *   json
+     * @param keys
+     *   用.连接的key列表
+     * @return
+     *   value
+     */
     public static String getValue(String json, String keys){
         return getValue(json, keys.split("\\."));
     }

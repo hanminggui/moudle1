@@ -12,7 +12,7 @@ import com.interfacetest.util.JsonHelper;
 public class TestScanner {
 
     public static void main(String args[]) throws Exception {
-        String user = "15971500026";
+        String user = "13200000002";
 //        String user = "15600212730";
         String pass = "qqqqqq";
 

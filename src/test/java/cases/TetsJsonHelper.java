@@ -13,6 +13,8 @@ public class TetsJsonHelper {
     @DataProvider(name = "json")
     public Object[][] get(){
         return new Object[][]{
+                {"[{\"a\":1},{\"a\":2}]","[1].a","1"},
+                {"[{\"a\":1},{\"a\":2}]","[2].b","2"},
                 {"{\"a\":\"a\"}","a","a"},
                 {"{\"a\":{\"b\":\"b\"}}","a.b","b"},
                 {"{\"a\":[{\"b\":1},{\"c\":\"c\"}]}","a[0].b","1"},

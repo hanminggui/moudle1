@@ -142,6 +142,7 @@ public class Request implements Serializable {
      */
     private RequestType type;
 
+
     /**
      * 返回的状态码
      */
