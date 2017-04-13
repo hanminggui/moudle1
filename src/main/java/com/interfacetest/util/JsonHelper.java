@@ -8,9 +8,14 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class JsonHelper {
 
+    public static String getValue(String json, String keys){
+        return getValue(json, keys.split("\\."));
+    }
+
     /**
      *
      * 取出Json中指定的值
+     * 支持所有情况的格式
      * @param json  目标json
      * @param keys  要取出值的key的完整路径 例如：
      *              json={"a":[{"b":1},{"c":"c"}],"d":{"e":"e"}}
@@ -21,47 +26,42 @@ public class JsonHelper {
      *              keys=a.c  return null       路径中包含数组时第0个数组里没有key=c所以返回null
      * @return
      */
-    public static String getValue(String json, String keys[]){
-        if(null == keys || keys.length == 0){
+    public static String getValue(String json, String keys[]) {
+        if (null == keys || keys.length == 0) {
             return null;
         }
 
-        JSONObject jo = JSON.parseObject(json);
-
         for(int i=0; i<keys.length; i++){
-
-            if(i < keys.length-1){
-                if(keys[i].contains("[") && keys[i].contains("]")){
-                    String keyName = keys[i].substring(0, keys[i].indexOf("["));
-                    int keyIndex = Integer.parseInt(keys[i].substring(keys[i].indexOf("[")+1, keys[i].indexOf("]")));
-                    json = jo.getJSONArray(keyName).getString(keyIndex);
+            if(hasIndex(keys[i])){
+                if(isIndex(keys[i])){
+                    json = JSON.parseArray(json).getString(getIndex(keys[i]));
                 }else {
-                    json = jo.getString(keys[i]);
+                    String keyName = keys[i].substring(0, keys[i].indexOf("["));
+                    int keyIndex = getIndex(keys[i]);
+                    json = JSON.parseObject(json).getJSONArray(keyName).getString(keyIndex);
+                }
+            }else {
+                try{
+                    json = JSON.parseObject(json).getString(keys[i]);
+                }catch (ClassCastException e){
+                    json = JSON.parseObject(JSON.parseArray(json).getString(0)).getString(keys[i]);
                 }
             }
-            try{
-                jo = JSON.parseObject(json);
-            }catch (ClassCastException e){
-                json = jo.getJSONArray(keys[i]).getString(0);
-                jo = JSON.parseObject(json);
-            }
-
         }
 
-        return jo.get(keys[keys.length-1]) + "";
+        return json+ "";
     }
 
-    /**
-     * 取出Json中指定的值
-     * @param json
-     *   json
-     * @param keys
-     *   用.连接的key列表
-     * @return
-     *   value
-     */
-    public static String getValue(String json, String keys){
-        return getValue(json, keys.split("\\."));
+    private static boolean hasIndex(String str){
+        return str.contains("[") && str.contains("]");
+    }
+
+    private static boolean isIndex(String str){
+        return str.startsWith("[") && str.endsWith("]");
+    }
+
+    private static int getIndex(String index){
+        return Integer.parseInt(index.substring(index.indexOf("[")+1, index.indexOf("]")));
     }
 
 }
