@@ -1,6 +1,8 @@
 package com.interfacetest.http.bean;
 
 import com.alibaba.fastjson.JSON;
+import com.interfacetest.http.enums.ContentType;
+import com.interfacetest.http.enums.RequestMethod;
 
 /**
  * Created by han on 2017/3/3.

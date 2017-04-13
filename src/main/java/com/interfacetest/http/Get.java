@@ -1,7 +1,7 @@
 package com.interfacetest.http;
 
 import com.interfacetest.http.bean.Request;
-import com.interfacetest.http.bean.RequestMethod;
+import com.interfacetest.http.enums.RequestMethod;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 

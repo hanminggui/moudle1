@@ -1,4 +1,4 @@
-package com.interfacetest.http.bean;
+package com.interfacetest.http.enums;
 
 /**
  * Created by han on 2017/4/12.
@@ -10,7 +10,7 @@ public enum ContentType {
     XHTML,
     FORM_DATA;
 
-    public String getContentType(ContentType ct){
+    public static String getContentType(ContentType ct){
         switch (ct){
             case FORM_DATA:
                 return "multipart/form-data";
@@ -25,4 +25,5 @@ public enum ContentType {
         }
         return null;
     }
+
 }

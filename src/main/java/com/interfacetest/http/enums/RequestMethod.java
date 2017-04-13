@@ -1,4 +1,4 @@
-package com.interfacetest.http.bean;
+package com.interfacetest.http.enums;
 
 /**
  * Created by han on 2017/3/3.
