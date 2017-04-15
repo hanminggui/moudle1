@@ -1,8 +1,10 @@
 package cases;
 
+import com.alibaba.fastjson.JSON;
 import com.interfacetest.http.HttpUtil;
 import com.interfacetest.http.bean.Interface;
 import com.interfacetest.http.bean.Request;
+import com.interfacetest.http.bean.RequestResponseArgs;
 import com.interfacetest.http.enums.ContentType;
 import com.interfacetest.http.enums.RequestMethod;
 import com.interfacetest.util.JdbcUtils;
@@ -24,6 +26,12 @@ public class Case_a {
         Interface checkPhone = mysql.findSimpleRefResult(sql, param, Interface.class);
         System.out.println(checkPhone);
 
+        List<RequestResponseArgs> reqArgs =  JSON.parseArray(checkPhone.getRequestArgs()).toJavaList(RequestResponseArgs.class);
+        for (RequestResponseArgs rra : reqArgs){
+            System.out.println(JSON.toJSONString(rra));
+            rra.get
+        }
+
         HttpUtil hu = new HttpUtil();
         Request req = new Request();
         req.setUrl(checkPhone.getUrl());
@@ -37,5 +45,7 @@ public class Case_a {
         req.setRequestMethod(RequestMethod.GET);
         hu.send(req);
     }
+
+
 }
 
