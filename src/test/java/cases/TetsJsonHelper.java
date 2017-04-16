@@ -13,6 +13,8 @@ public class TetsJsonHelper {
     @DataProvider(name = "json")
     public Object[][] get(){
         return new Object[][]{
+                {"[{\"a\":1},{\"a\":2}]","[0].a","1"},
+                {"[{\"a\":1},{\"b\":2}]","[1].b","2"},
                 {"[{\"require\":\"true\",\"name\":\"phone_no_encryp\"}]", "[0].require", "true"},
                 {"{\"a\":\"a\"}","a","a"},
                 {"{\"a\":{\"b\":\"b\"}}","a.b","b"},

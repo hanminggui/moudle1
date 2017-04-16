@@ -52,7 +52,6 @@ public class JsonHelper {
         return json+ "";
     }
 
-
     private static boolean hasIndex(String str){
         return str.contains("[") && str.contains("]");
     }
