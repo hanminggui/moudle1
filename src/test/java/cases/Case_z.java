@@ -1,5 +1,6 @@
 package cases;
 
+import com.interfacetest.http.JsonPost;
 import com.interfacetest.http.Request;
 import com.interfacetest.http.Get;
 import com.interfacetest.http.Post;
@@ -14,7 +15,7 @@ public class Case_z {
 //        Request re2 = new Http().setUrl("http://www.webservicex.net/whois.asmx/GetWhoIS").setParams("HostName=www.google.com").post();
 
         Request re3 = new Post()
-                .setParams("method=POST&uuid=39351c992cba4a748b631bdced15ef1a&sign=88334aa81037a8f21145ec2e455d7855&userInfo={nick_name:张大,sex:1, baby_sex :1, baby_name:“张三”，baby_birthday:0000-00-00,\"avatar_url\":\"http://aaa\"} ")
+                .setParam("method=POST&uuid=39351c992cba4a748b631bdced15ef1a&sign=88334aa81037a8f21145ec2e455d7855&userInfo={nick_name:张大,sex:1, baby_sex :1, baby_name:“张三”，baby_birthday:0000-00-00,\"avatar_url\":\"http://aaa\"} ")
                 .setHeaders("a=a")
                 .setPath("api/ivy_lgrg")
                 .send();
@@ -24,6 +25,10 @@ public class Case_z {
                 .setHeaders("a=b")
                 .send();
 
+        Request re1 = new JsonPost()
+                .setPath("api/ivy_lgrg")
+                .setParam("{\"a\"=1}")
+                .send();
 
 
 

@@ -2,16 +2,13 @@ package com.interfacetest.http;
 
 import com.interfacetest.util.Common;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,36 +26,13 @@ public class Post extends Http {
 
     private List<NameValuePair> param = new ArrayList<>();
 
-    public Request send(){
+    @Override
+    public HttpRequestBase build() {
         HttpPost post = new HttpPost();
-        post.setURI(URI.create(this.getUrl()));
         HttpEntity entity = new UrlEncodedFormEntity(param,UTF_8);
         post.setEntity(entity);
-        for(Map.Entry<Object, Object> entry : headers.entrySet()){
-            post.addHeader(entry.getKey().toString(), entry.getKey().toString());
-        }
-
-        HttpResponse response = null;
-
-        Long beginTime = new Date().getTime();
-        try {
-            response = closeableHttpClient.execute(post);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        long runTime = new Date().getTime() - beginTime;
-
-        Request req = new Request();
-        req = buildRequest(req, response);
-
-        req.setEntity(entity.toString());
-        req.setRunTime(runTime);
-
-        log.info(req);
-
-        return req;
+        return post;
     }
-
 
     /**
      * 批量设置参数(覆盖)
@@ -69,8 +43,8 @@ public class Post extends Http {
      * @return
      *  this
      */
-    public Http setParams(String params){
-        return setParams(Common.split(params, SPLIT_ENTRY, SPLIT_KEY_VALUE));
+    public Http setParam(String params){
+        return setParam(Common.split(params, SPLIT_ENTRY, SPLIT_KEY_VALUE));
     }
 
     /**
@@ -82,7 +56,7 @@ public class Post extends Http {
      * @return
      *  this
      */
-    public Http setParams(Map<Object, Object> params){
+    public Http setParam(Map<Object, Object> params){
         this.param = mapToParam(params);
         return this;
     }

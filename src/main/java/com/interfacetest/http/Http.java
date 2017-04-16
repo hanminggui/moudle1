@@ -3,13 +3,15 @@ package com.interfacetest.http;
 import com.interfacetest.util.Common;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URI;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -31,7 +33,7 @@ public abstract class Http {
     protected String host;
     protected String path;
     protected String url;
-    protected Object param;
+    protected String param;
     protected RequestType type;
     protected Map<Object, Object> headers = new HashMap<>();
 
@@ -40,7 +42,34 @@ public abstract class Http {
     protected Logger log = Logger.getLogger(this.getClass());
 
 
-    public abstract Request send();
+    public abstract HttpRequestBase build();
+
+    public Request send(){
+        HttpRequestBase hrb = build();
+        hrb.setURI(URI.create(url));
+        for(Map.Entry<Object, Object> entry : headers.entrySet()){
+            hrb.addHeader(entry.getKey().toString(), entry.getKey().toString());
+        }
+
+        HttpResponse response = null;
+
+        Long beginTime = new Date().getTime();
+        try {
+            response = closeableHttpClient.execute(hrb);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        long runTime = new Date().getTime() - beginTime;
+
+        Request req = new Request();
+        req = buildRequest(req, response);
+        req.setRunTime(runTime);
+        log.info(req);
+
+        return req;
+    }
 
     /**
      * 无参构造方法
@@ -164,7 +193,7 @@ public abstract class Http {
         return param;
     }
 
-    public Http setParam(Object param) {
+    public Http setParam(String param) {
         this.param = param;
         return this;
     }
